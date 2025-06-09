@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 function Post({
   post: { id, titulo, img, descripcion, likes },
   like,
@@ -33,5 +34,11 @@ function Post({
     </div>
   );
 }
+
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
+  like: PropTypes.func.isRequired,
+  eliminarPost: PropTypes.func.isRequired,
+};
 
 export default Post;
