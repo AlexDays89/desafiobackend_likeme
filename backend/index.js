@@ -2,12 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import pool from './db/config.js';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 dotenv.config();
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(PORT, () => {
   console.log(`El servidor está corriendo en el puerto ${PORT}`);
