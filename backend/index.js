@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`El servidor está corriendo en el puerto ${PORT}`);
 });
 
 app.get("/posts", async (req, res) => {
