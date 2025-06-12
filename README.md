@@ -1,10 +1,11 @@
 Desafío 3 Backend DesafíoLatam
-
+<br>
 Documentación: API REST “Like Me” (Parte II)
+<br>
 Permitir la interacción de likes y la eliminación de posts en una red social, utilizando rutas PUT y DELETE en una API REST conectada a PostgreSQL, y capturando posibles errores en las consultas.
-
+<br>
 1. Estructura de la tabla en PostgreSQL
-
+<br>
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   titulo VARCHAR(25),
@@ -12,14 +13,19 @@ CREATE TABLE posts (
   descripcion VARCHAR(255),
   likes INT DEFAULT 0
 );
+<br>
 Es importante que el campo likes tenga un valor por defecto de 0 para evitar problemas al incrementar.
-
+<br>
 2. Ruta PUT: Dar like a un post
+<br>
 Método: PUT
+<br>
 Endpoint: /posts/likes/:id
+<br>
 Funcionalidad: Incrementa en 1 el campo likes del post con el id especificado.
+<br>
 
-
+<p>
 app.put("/posts/likes/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -33,10 +39,15 @@ app.put("/posts/likes/:id", async (req, res) => {
     res.status(500).json({ error: "Error al dar like" });
   }
 });
+</p>
 
+<br>
 3. Ruta DELETE: Eliminar un post
+<br>
 Método: DELETE
+<br>
 Endpoint: /posts/:id
+<br>
 Funcionalidad: Elimina el post con el id especificado.
 
 
