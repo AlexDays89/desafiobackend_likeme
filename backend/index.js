@@ -19,7 +19,7 @@ app.listen(PORT, () => {
 
 app.get("/posts", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM posts");
+    const result = await pool.query("SELECT * FROM posts ORDER BY likes DESC");
     res.json(result.rows);
   } catch (error) {
     console.log(error);
@@ -41,3 +41,30 @@ app.post("/posts", async (req, res) => {
   }
 });
 
+app.put("/posts/likes/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      "UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING *",
+      [id]
+    );
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al dar like" });
+  }
+});
+
+app.delete("/posts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      "DELETE FROM posts WHERE id = $1 RETURNING *",
+      [id]
+    );
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al eliminar el post" });
+  }
+});
